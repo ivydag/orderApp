@@ -1,5 +1,6 @@
 package com.ivy.dev.orderapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,7 +10,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.ivy.dev.orderapp.ui.theme.OrderAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,25 +26,29 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val context = LocalContext.current
+                    val sharedPreferences = context.getSharedPreferences("order_preferences", Context.MODE_PRIVATE)
+                    val isUserRegister = sharedPreferences.getBoolean(REGISTER_USER, false)
+
+                    val navController = rememberNavController()
+                    MyNavigationComposable(navController)
+
+                    if (isUserRegister) {
+                        navController.navigate(Home.route) {
+                            launchSingleTop = true
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                        }
+                    } else {
+                        MyNavigationComposable(navController)
+                    }
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    OrderAppTheme {
-        Greeting("Android")
+    companion object{
+        const val REGISTER_USER = "REGISTER_USER"
     }
 }
