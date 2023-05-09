@@ -56,11 +56,8 @@ class MainActivity : ComponentActivity() {
                     context.getSharedPreferences("order_preferences", Context.MODE_PRIVATE)
                 val isUserRegister = sharedPreferences.getBoolean(REGISTER_USER, false)
 
-
-
                 val navController = rememberNavController()
                 MyNavigationComposable(navController, database.menuDao())
-
 
                 if (isUserRegister) {
                     navController.navigate(Home.route) {
@@ -102,6 +99,9 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val REGISTER_USER = "REGISTER_USER"
+        const val USER_NAME = "USER_NAME"
+        const val USER_LASTNAME = "USER_LASTNAME"
+        const val USER_EMAIL = "USER_LASTNAME"
         const val DATABASE_NAME = "menu_database.db"
     }
 }
