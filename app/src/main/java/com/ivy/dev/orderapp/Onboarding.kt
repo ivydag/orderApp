@@ -35,6 +35,7 @@ import com.ivy.dev.orderapp.MainActivity.Companion.REGISTER_USER
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_EMAIL
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_LASTNAME
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_NAME
+import com.ivy.dev.orderapp.ui.theme.cloud
 import com.ivy.dev.orderapp.ui.theme.green
 import com.ivy.dev.orderapp.ui.theme.yellow
 
@@ -87,10 +88,10 @@ fun Onboarding(navController: NavHostController) {
             text = "Lets get to know you",
             modifier = Modifier
                 .background(green)
-                .padding(20.dp)
+                .padding(top = 35.dp, bottom = 35.dp)
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
-            color = yellow,
+            color = cloud,
             fontSize = 24.sp,
             textAlign = TextAlign.Center
         )
