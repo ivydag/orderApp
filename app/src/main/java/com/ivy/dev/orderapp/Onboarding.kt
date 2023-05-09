@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -105,19 +107,34 @@ fun Onboarding(navController: NavHostController) {
             value = userName,
             label = { Text("Enter your name") },
             onValueChange = { newValue -> userName = newValue },
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
         TextField(
             value = lastName,
             label = { Text("Enter your last name") },
             onValueChange = { newValue -> lastName = newValue },
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
         TextField(
             value = email,
             label = { Text("Enter your email") },
             onValueChange = { newValue -> email = newValue },
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
 
         Button(
@@ -144,7 +161,7 @@ fun Onboarding(navController: NavHostController) {
                 }
 
             }, colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier.padding(5.dp).fillMaxWidth().padding(start = 16.dp, end = 16.dp)
         ) {
             Text(text = "Register")
 

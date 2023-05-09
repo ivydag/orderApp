@@ -13,6 +13,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,31 +63,49 @@ fun Profile(context: Context, navController: NavHostController) {
         }
 
         Text(
-            text = "User Profile",
-            fontSize= 24.sp,
+            text = "Personal information",
+            fontSize= 18.sp,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
         )
         Image(
             painter = painterResource(id = R.drawable.profile),
-            contentDescription = "user profile"
+            contentDescription = "Personal Information"
         )
-        Text(
-            text = "Name : $name",
-            modifier = Modifier.padding(top = 16.dp),
-            style = MaterialTheme.typography.h4
+        TextField(
+            value = name.toString(),
+            label = { Text("First Name") },
+            onValueChange = {  },
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
 
-        Text(
-            text = "Last name: $lastName",
-            modifier = Modifier.padding(top = 16.dp),
-            style = MaterialTheme.typography.h4
+        TextField(
+            value = lastName.toString(),
+            label = { Text("Lastname") },
+            onValueChange = { },
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
-        Text(
-            text = "Email:  $email",
-            modifier = Modifier.padding(top = 4.dp, bottom = 16.dp),
-            style = MaterialTheme.typography.subtitle1
+        TextField(
+            value = email.toString(),
+            label = { Text("Email") },
+            onValueChange = { },
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.onSurface,
+                leadingIconColor = MaterialTheme.colors.onSurface)
         )
 
         Button(
@@ -96,7 +116,7 @@ fun Profile(context: Context, navController: NavHostController) {
                 }
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
-            modifier = Modifier.padding(bottom = 32.dp)
+            modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth().padding(start = 16.dp, end = 16.dp)
         ) {
             Text(text = "Log out")
 
