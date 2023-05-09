@@ -8,9 +8,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ivy.dev.orderapp.data.MenuDao
 
 @Composable
-fun MyNavigationComposable(navController: NavHostController) {
+fun MyNavigationComposable(navController: NavHostController, menuDao: MenuDao) {
     val isUserConnected = false
 
     NavHost(
@@ -18,7 +19,7 @@ fun MyNavigationComposable(navController: NavHostController) {
         startDestination = Onboarding.route
     ) {
         composable(Home.route) {
-            Home()
+            Home(menuDao = menuDao)
         }
 
         composable(Onboarding.route) {
