@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ivy.dev.orderapp.MainActivity.Companion.REGISTER_USER
+import com.ivy.dev.orderapp.MainActivity.Companion.USER_EMAIL
+import com.ivy.dev.orderapp.MainActivity.Companion.USER_LASTNAME
+import com.ivy.dev.orderapp.MainActivity.Companion.USER_NAME
 import com.ivy.dev.orderapp.ui.theme.green
 import com.ivy.dev.orderapp.ui.theme.yellow
 
@@ -118,7 +121,12 @@ fun Onboarding(navController: NavHostController) {
                         launchSingleTop = true
                     }
 
-                    sharedPreferences.edit().putBoolean(REGISTER_USER, true).apply()
+                    sharedPreferences.edit()
+                        .putBoolean(REGISTER_USER, true)
+                        .putString(USER_NAME,userName)
+                        .putString(USER_LASTNAME, lastName)
+                        .putString(USER_EMAIL, email)
+                        .apply()
                 }
 
             }, modifier = Modifier.padding(5.dp)) {

@@ -1,9 +1,12 @@
 package com.ivy.dev.orderapp
 
+import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,14 +38,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ivy.dev.orderapp.data.MenuDao
@@ -54,7 +60,7 @@ import java.util.Locale
 
 
 @Composable
-fun Home(menuDao: MenuDao) {
+fun Home(menuDao: MenuDao, navController: NavHostController) {
     var searchPhrase by remember {
         mutableStateOf("")
     }
@@ -66,23 +72,36 @@ fun Home(menuDao: MenuDao) {
     ) {
 
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.End,
             modifier = Modifier.fillMaxWidth()
         ) {
+
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = " Restaurant Logo",
                 modifier = Modifier
-                    .weight(1f)
+                    .weight(3F)
                     .size(50.dp)
-                    .padding(top = 5.dp, bottom = 5.dp)
+                    .align(Alignment.CenterVertically)
+                    .padding(top = 5.dp, bottom = 5.dp),
+                contentScale = ContentScale.Fit
             )
-            Spacer(modifier = Modifier.width(5.dp))
-            Image(
-                painter = painterResource(id = R.drawable.profile),
-                contentDescription = "Profile photo",
-                modifier = Modifier.size(50.dp)
-            )
+
+            //Spacer(modifier = Modifier.width(50.dp))
+            Box(
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(Profile.route) {
+                            launchSingleTop = true
+                        }
+                    }
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = "Profile photo",
+                    modifier = Modifier.size(50.dp)
+                )
+            }
         }
         HeroSection(menuDao)
 
@@ -105,14 +124,14 @@ fun HeroSection(menuDao: MenuDao) {
         Text(
             text = "Little Lemon",
             color = yellow,
-            style= MaterialTheme.typography.h3,
+            style = MaterialTheme.typography.h3,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
         Text(
             text = "Chicago",
             color = cloud,
             fontSize = 24.sp,
-            style= MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.h2,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
@@ -127,7 +146,7 @@ fun HeroSection(menuDao: MenuDao) {
                     .padding(vertical = 8.dp),
                 text = "We are a family-owned Mediterranean restaurant, focused on traditional " +
                         "recipes served with a modern twist",
-                style= MaterialTheme.typography.subtitle1,
+                style = MaterialTheme.typography.subtitle1,
                 color = cloud,
                 fontSize = 20.sp,
             )
@@ -167,9 +186,10 @@ fun HeroSection(menuDao: MenuDao) {
     Column(
         Modifier
             .background(Color.White)
-            .fillMaxWidth()) {
-        chipsCategories(selectedCategories ){category -> selectedCategories = category.toString() }
-        MenuDish(menuDao = menuDao, searchPhrase= searchPhrase, selectedCategories)
+            .fillMaxWidth()
+    ) {
+        chipsCategories(selectedCategories) { category -> selectedCategories = category.toString() }
+        MenuDish(menuDao = menuDao, searchPhrase = searchPhrase, selectedCategories)
     }
 
 }
@@ -183,7 +203,12 @@ fun MenuDish(menuDao: MenuDao, searchPhrase: String, category: String) {
         if (category.isNullOrEmpty()) {
             menuItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
         } else {
-            menuItems.filter { it.category == category && it.title.contains(searchPhrase, ignoreCase = true) }
+            menuItems.filter {
+                it.category == category && it.title.contains(
+                    searchPhrase,
+                    ignoreCase = true
+                )
+            }
         }
     } else {
         menuItems
@@ -211,7 +236,7 @@ fun MenuDish(menuDao: MenuDao, searchPhrase: String, category: String) {
                         )
 
                         Text(
-                            text = "$ %.2f".format( menuItem.price.toDouble()),
+                            text = "$ %.2f".format(menuItem.price.toDouble()),
                             style = MaterialTheme.typography.body2
                         )
                     }
@@ -262,7 +287,7 @@ fun chipsCategories(selectedCategory: String, onCategorySelected: (String?) -> U
             for (category in categories) {
 
                 Chip(
-                    onClick = { onCategorySelected(category.lowercase(Locale.ROOT))},
+                    onClick = { onCategorySelected(category.lowercase(Locale.ROOT)) },
                     modifier = Modifier.padding(end = 5.dp),
                     colors = ChipDefaults.chipColors(
                         backgroundColor =

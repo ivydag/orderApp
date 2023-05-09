@@ -1,7 +1,9 @@
 package com.ivy.dev.orderapp
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
@@ -19,7 +21,7 @@ fun MyNavigationComposable(navController: NavHostController, menuDao: MenuDao) {
         startDestination = Onboarding.route
     ) {
         composable(Home.route) {
-            Home(menuDao = menuDao)
+            Home(menuDao = menuDao, navController)
         }
 
         composable(Onboarding.route) {
@@ -27,7 +29,7 @@ fun MyNavigationComposable(navController: NavHostController, menuDao: MenuDao) {
         }
 
         composable(Profile.route) {
-           Profile()
+           Profile(context = LocalContext.current)
         }
 
     }
