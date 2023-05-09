@@ -1,20 +1,17 @@
-package com.ivy.dev.orderapp
+package com.ivy.dev.orderapp.navigation
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.ivy.dev.orderapp.Home
+import com.ivy.dev.orderapp.Onboarding
+import com.ivy.dev.orderapp.Profile
 import com.ivy.dev.orderapp.data.MenuDao
 
 @Composable
 fun MyNavigationComposable(navController: NavHostController, menuDao: MenuDao) {
-    val isUserConnected = false
 
     NavHost(
         navController = navController,

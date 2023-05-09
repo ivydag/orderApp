@@ -7,14 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.ivy.dev.orderapp.data.AppDatabase
+import com.ivy.dev.orderapp.navigation.MyNavigationComposable
 import com.ivy.dev.orderapp.network.MenuItemNetwork
 import com.ivy.dev.orderapp.network.MenuNetworkData
 import io.ktor.client.HttpClient
@@ -33,8 +32,6 @@ class MainActivity : ComponentActivity() {
             json(contentType = ContentType("text", "plain"))
         }
     }
-
-    private val menuItemsLiveData = MutableLiveData<List<MenuItemNetwork>>()
 
     private val database by lazy {
         Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database").build()

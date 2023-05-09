@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,6 @@ import androidx.navigation.NavHostController
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_EMAIL
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_LASTNAME
 import com.ivy.dev.orderapp.MainActivity.Companion.USER_NAME
-import com.ivy.dev.orderapp.ui.theme.green
 import com.ivy.dev.orderapp.ui.theme.yellow
 
 @Composable
@@ -95,6 +95,7 @@ fun Profile(context: Context, navController: NavHostController) {
                     launchSingleTop = true
                 }
             },
+            colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
             modifier = Modifier.padding(bottom = 32.dp)
         ) {
             Text(text = "Log out")

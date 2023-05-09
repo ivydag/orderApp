@@ -5,13 +5,13 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -39,86 +39,89 @@ import com.ivy.dev.orderapp.ui.theme.yellow
 
 @Composable
 fun Onboarding(navController: NavHostController) {
-        var isValid = false
-        val context = LocalContext.current
+    var isValid: Boolean
+    val context = LocalContext.current
 
-        val sharedPreferences = context.getSharedPreferences("order_preferences", Context.MODE_PRIVATE)
+    val sharedPreferences = context.getSharedPreferences("order_preferences", Context.MODE_PRIVATE)
 
 
-        var userName by remember {
-            mutableStateOf("")
-        }
+    var userName by remember {
+        mutableStateOf("")
+    }
 
-        var lastName by remember {
-            mutableStateOf("")
-        }
+    var lastName by remember {
+        mutableStateOf("")
+    }
 
-        var email by remember {
-            mutableStateOf("")
-        }
+    var email by remember {
+        mutableStateOf("")
+    }
 
-        Column(
-            Modifier.fillMaxWidth().background(Color.White),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier.fillMaxWidth()
-            ) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.logo),
-                    contentDescription = " Restaurant Logo",
-                    modifier = Modifier
-                        .weight(3F)
-                        .size(50.dp)
-                        .align(Alignment.CenterVertically)
-                        .padding(top = 5.dp, bottom = 5.dp),
-                    contentScale = ContentScale.Fit
-                )
-            }
-
-            Text(
-                text = "Lets get to know you",
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = " Restaurant Logo",
                 modifier = Modifier
-                    .background(green)
-                    .padding(20.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
-                color = yellow,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center
+                    .weight(3F)
+                    .size(50.dp)
+                    .align(Alignment.CenterVertically)
+                    .padding(top = 5.dp, bottom = 5.dp),
+                contentScale = ContentScale.Fit
+            )
+        }
+
+        Text(
+            text = "Lets get to know you",
+            modifier = Modifier
+                .background(green)
+                .padding(20.dp)
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally),
+            color = yellow,
+            fontSize = 24.sp,
+            textAlign = TextAlign.Center
+        )
+
+        Text(
+            textAlign = TextAlign.Start,
+            text = "Personal Information",
+            fontSize = 18.sp,
+            modifier = Modifier.padding(top = 20.dp, start = 5.dp, bottom = 20.dp),
+
             )
 
-            Text(
-                textAlign = TextAlign.Start,
-                text = "Personal Information",
-                fontSize = 18.sp,
-                modifier = Modifier.padding(top = 20.dp, start = 5.dp, bottom = 20.dp),
+        TextField(
+            value = userName,
+            label = { Text("Enter your name") },
+            onValueChange = { newValue -> userName = newValue },
+            modifier = Modifier.padding(5.dp)
+        )
+        TextField(
+            value = lastName,
+            label = { Text("Enter your last name") },
+            onValueChange = { newValue -> lastName = newValue },
+            modifier = Modifier.padding(5.dp)
+        )
+        TextField(
+            value = email,
+            label = { Text("Enter your email") },
+            onValueChange = { newValue -> email = newValue },
+            modifier = Modifier.padding(5.dp)
+        )
 
-                )
-
-            TextField(
-                value = userName,
-                label = { Text("Enter your name") },
-                onValueChange = { newValue -> userName = newValue},
-                modifier = Modifier.padding(5.dp)
-            )
-            TextField(
-                value = lastName,
-                label = { Text("Enter your last name") },
-                onValueChange = { newValue -> lastName = newValue},
-                modifier = Modifier.padding(5.dp)
-            )
-            TextField(
-                value = email,
-                label = { Text("Enter your email") },
-                onValueChange = { newValue -> email = newValue },
-                modifier = Modifier.padding(5.dp)
-            )
-
-            Button(onClick = {
+        Button(
+            onClick = {
                 isValid = when {
                     userName.isBlank() -> false
                     lastName.isBlank() -> false
@@ -126,7 +129,7 @@ fun Onboarding(navController: NavHostController) {
                     else -> true
                 }
                 Toast.makeText(context, isValid.toString(), Toast.LENGTH_SHORT).show()
-                if (isValid){
+                if (isValid) {
                     navController.navigate(Home.route) {
                         popUpTo(Home.route)
                         launchSingleTop = true
@@ -134,17 +137,19 @@ fun Onboarding(navController: NavHostController) {
 
                     sharedPreferences.edit()
                         .putBoolean(REGISTER_USER, true)
-                        .putString(USER_NAME,userName)
+                        .putString(USER_NAME, userName)
                         .putString(USER_LASTNAME, lastName)
                         .putString(USER_EMAIL, email)
                         .apply()
                 }
 
-            }, modifier = Modifier.padding(5.dp)) {
-                Text(text = "Register")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
+            modifier = Modifier.padding(5.dp)
+        ) {
+            Text(text = "Register")
 
-            }
         }
+    }
 
 
 }
