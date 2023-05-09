@@ -29,7 +29,7 @@ fun MyNavigationComposable(navController: NavHostController, menuDao: MenuDao) {
         }
 
         composable(Profile.route) {
-           Profile(context = LocalContext.current)
+           Profile(context = LocalContext.current, navController)
         }
 
     }

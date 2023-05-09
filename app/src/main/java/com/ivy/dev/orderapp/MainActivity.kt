@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
         const val REGISTER_USER = "REGISTER_USER"
         const val USER_NAME = "USER_NAME"
         const val USER_LASTNAME = "USER_LASTNAME"
-        const val USER_EMAIL = "USER_LASTNAME"
+        const val USER_EMAIL = "USER_EMAIL"
         const val DATABASE_NAME = "menu_database.db"
     }
 }

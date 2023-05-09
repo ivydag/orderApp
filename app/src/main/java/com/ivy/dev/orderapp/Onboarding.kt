@@ -6,10 +6,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -37,8 +39,6 @@ import com.ivy.dev.orderapp.ui.theme.yellow
 
 @Composable
 fun Onboarding(navController: NavHostController) {
-    Box(modifier = Modifier.background(Color.White)) {
-
         var isValid = false
         val context = LocalContext.current
 
@@ -58,15 +58,26 @@ fun Onboarding(navController: NavHostController) {
         }
 
         Column(
+            Modifier.fillMaxWidth().background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.Top
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Brand logo",
-                modifier = Modifier
-                    .padding(5.dp)
-            )
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = " Restaurant Logo",
+                    modifier = Modifier
+                        .weight(3F)
+                        .size(50.dp)
+                        .align(Alignment.CenterVertically)
+                        .padding(top = 5.dp, bottom = 5.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
 
             Text(
                 text = "Lets get to know you",
@@ -135,5 +146,5 @@ fun Onboarding(navController: NavHostController) {
             }
         }
 
-    }
+
 }
