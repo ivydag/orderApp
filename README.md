@@ -16,8 +16,11 @@ It contains 3 Navigation screen:
 The main functionality of the app is implemented in the MainActivity class, which handles the app lifecycle, initializes the UI, and sets up the database and network communication.
 
 ## App Preview
-
-<img src="https://user-images.githubusercontent.com/4443916/237006542-7fe38593-97d9-4369-a2d8-3ae5df8a3960.png" width="200" height="400" alt="Order App">
+<div style="display:flex;">
+    <img src="https://github.com/ivydag/orderApp/assets/4443916/f6d6c4a4-9522-4f16-b2c8-efc7f5760fc9" width="200" height="400" alt="image">
+    <img src="https://user-images.githubusercontent.com/4443916/237006542-7fe38593-97d9-4369-a2d8-3ae5df8a3960.png" width="200" height="400" alt="Order App">
+    <img src="https://github.com/ivydag/orderApp/assets/4443916/df8931aa-c4c9-455b-a864-2f0a55d45686" width="200" height="400" alt="image">
+</div>
 
 ## Wireframes
 <img width="550" height="450" alt="image" src="https://github.com/ivydag/orderApp/assets/4443916/7bfb929b-da30-42b8-8156-59379daf9261">
