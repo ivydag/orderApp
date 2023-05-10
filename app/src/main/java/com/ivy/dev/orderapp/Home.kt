@@ -1,6 +1,5 @@
 package com.ivy.dev.orderapp
 
-import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,11 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -44,8 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontVariation.weight
-import androidx.compose.ui.text.toLowerCase
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -199,8 +195,10 @@ fun HeroSection(menuDao: MenuDao) {
 fun MenuDish(menuDao: MenuDao, searchPhrase: String, category: String) {
     val menuItems by menuDao.getAllMenu().observeAsState(emptyList())
 
-    val filteredMenuItems = if (!menuItems.isNullOrEmpty()) {
-        if (category.isNullOrEmpty()) {
+    val filteredMenuItems = if (!menuItems.isEmpty()) {
+        if (category.isEmpty()) {
+            menuItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
+        } else if (category == "all") {
             menuItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
         } else {
             menuItems.filter {
@@ -282,13 +280,19 @@ fun chipsCategories(selectedCategory: String, onCategorySelected: (String?) -> U
                 .horizontalScroll(
                     rememberScrollState()
                 ),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             for (category in categories) {
-
+                val isSelected = selectedCategory == category.lowercase(Locale.ROOT)
                 Chip(
-                    onClick = { onCategorySelected(category.lowercase(Locale.ROOT)) },
-                    modifier = Modifier.padding(end = 5.dp),
+                    onClick = {   if (isSelected) {
+                        onCategorySelected("all")
+                    } else {
+                        onCategorySelected(category.lowercase(Locale.ROOT))
+                    } },
+                    modifier = Modifier
+                        .padding(end = 5.dp)
+                        .size(width = 80.dp, height = 40.dp),
                     colors = ChipDefaults.chipColors(
                         backgroundColor =
                         gray
@@ -297,7 +301,10 @@ fun chipsCategories(selectedCategory: String, onCategorySelected: (String?) -> U
                         Text(
                             text = category,
                             style = MaterialTheme.typography.body2,
-                            color = green
+                            color = green,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+
                         )
                     }
                 )

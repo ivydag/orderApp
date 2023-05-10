@@ -82,7 +82,8 @@ fun Profile(context: Context, navController: NavHostController) {
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
+                leadingIconColor = MaterialTheme.colors.onSurface),
+            enabled = false
         )
 
         TextField(
@@ -94,7 +95,8 @@ fun Profile(context: Context, navController: NavHostController) {
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
+                leadingIconColor = MaterialTheme.colors.onSurface),
+            enabled = false
         )
         TextField(
             value = email.toString(),
@@ -105,7 +107,8 @@ fun Profile(context: Context, navController: NavHostController) {
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
+                leadingIconColor = MaterialTheme.colors.onSurface),
+            enabled = false
         )
 
         Button(

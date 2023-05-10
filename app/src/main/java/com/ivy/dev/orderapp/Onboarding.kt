@@ -146,7 +146,7 @@ fun Onboarding(navController: NavHostController) {
                     email.isBlank() -> false
                     else -> true
                 }
-                Toast.makeText(context, isValid.toString(), Toast.LENGTH_SHORT).show()
+
                 if (isValid) {
                     navController.navigate(Home.route) {
                         popUpTo(Home.route)
@@ -159,6 +159,8 @@ fun Onboarding(navController: NavHostController) {
                         .putString(USER_LASTNAME, lastName)
                         .putString(USER_EMAIL, email)
                         .apply()
+                }else{
+                    Toast.makeText(context, "Please fill the form to register", Toast.LENGTH_SHORT).show()
                 }
 
             }, colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
