@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -123,8 +122,8 @@ fun Onboarding(navController: NavHostController) {
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
                 leadingIconColor = MaterialTheme.colors.onSurface,
-                focusedIndicatorColor = if (isUserNameValid) Color.Transparent else Color.Red,
-                unfocusedIndicatorColor = if (isUserNameValid) Color.Transparent else Color.Red,
+                focusedIndicatorColor = if (isUserNameValid) Color.Gray else Color.Red,
+                unfocusedIndicatorColor = if (isUserNameValid) Color.Gray else Color.Red,
 
                 ),
 
@@ -134,7 +133,7 @@ fun Onboarding(navController: NavHostController) {
             label = { Text("Enter your last name") },
             onValueChange = { newValue ->
                 lastName = newValue
-                isLastNameValid = newValue.isNotBlank() && newValue.contains("@")
+                isLastNameValid = newValue.isNotBlank()
             },
             modifier = Modifier
                 .padding(16.dp)
@@ -144,8 +143,8 @@ fun Onboarding(navController: NavHostController) {
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
                 leadingIconColor = MaterialTheme.colors.onSurface,
-                focusedIndicatorColor = if (isLastNameValid) Color.Transparent else Color.Red,
-                unfocusedIndicatorColor = if (isLastNameValid) Color.Transparent else Color.Red
+                focusedIndicatorColor = if (isLastNameValid) Color.Gray else Color.Red,
+                unfocusedIndicatorColor = if (isLastNameValid) Color.Gray else Color.Red
             )
         )
         TextField(
@@ -163,8 +162,8 @@ fun Onboarding(navController: NavHostController) {
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
                 leadingIconColor = MaterialTheme.colors.onSurface,
-                focusedIndicatorColor = if (isEmailValid) Color.Transparent else Color.Red,
-                unfocusedIndicatorColor = if (isEmailValid) Color.Transparent else Color.Red
+                focusedIndicatorColor = if (isEmailValid) Color.Gray else Color.Red,
+                unfocusedIndicatorColor = if (isEmailValid) Color.Gray else Color.Red
             )
         )
 
@@ -190,7 +189,7 @@ fun Onboarding(navController: NavHostController) {
                         .putString(USER_EMAIL, email)
                         .apply()
                 } else {
-                    Toast.makeText(context, "Please fill the form to register", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Please fill the form to register.", Toast.LENGTH_SHORT)
                         .show()
                     isValid = false
                 }
@@ -204,6 +203,4 @@ fun Onboarding(navController: NavHostController) {
             Text(text = "Register")
         }
     }
-
-
 }
