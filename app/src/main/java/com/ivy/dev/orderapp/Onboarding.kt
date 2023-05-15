@@ -189,7 +189,7 @@ fun Onboarding(navController: NavHostController) {
                         .putString(USER_EMAIL, email)
                         .apply()
                 } else {
-                    Toast.makeText(context, "Please fill the form to register", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Please fill the form to register.", Toast.LENGTH_SHORT)
                         .show()
                     isValid = false
                 }
