@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -47,6 +48,9 @@ fun Onboarding(navController: NavHostController) {
 
     val sharedPreferences = context.getSharedPreferences("order_preferences", Context.MODE_PRIVATE)
 
+    var isUserNameValid by remember { mutableStateOf(true) }
+    var isLastNameValid by remember { mutableStateOf(true) }
+    var isEmailValid by remember { mutableStateOf(true) }
 
     var userName by remember {
         mutableStateOf("")
@@ -107,35 +111,61 @@ fun Onboarding(navController: NavHostController) {
         TextField(
             value = userName,
             label = { Text("Enter your name") },
-            onValueChange = { newValue -> userName = newValue },
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            onValueChange = { newValue ->
+                userName = newValue
+                isUserNameValid = newValue.isNotBlank()
+            },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
-        )
+                leadingIconColor = MaterialTheme.colors.onSurface,
+                focusedIndicatorColor = if (isUserNameValid) Color.Transparent else Color.Red,
+                unfocusedIndicatorColor = if (isUserNameValid) Color.Transparent else Color.Red,
+
+                ),
+
+            )
         TextField(
             value = lastName,
             label = { Text("Enter your last name") },
-            onValueChange = { newValue -> lastName = newValue },
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            onValueChange = { newValue ->
+                lastName = newValue
+                isLastNameValid = newValue.isNotBlank() && newValue.contains("@")
+            },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
+                leadingIconColor = MaterialTheme.colors.onSurface,
+                focusedIndicatorColor = if (isLastNameValid) Color.Transparent else Color.Red,
+                unfocusedIndicatorColor = if (isLastNameValid) Color.Transparent else Color.Red
+            )
         )
         TextField(
             value = email,
             label = { Text("Enter your email") },
-            onValueChange = { newValue -> email = newValue },
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            onValueChange = { newValue ->
+                email = newValue
+                isEmailValid = newValue.isNotBlank() && newValue.contains("@")
+            },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 textColor = MaterialTheme.colors.onSurface,
                 cursorColor = MaterialTheme.colors.onSurface,
-                leadingIconColor = MaterialTheme.colors.onSurface)
+                leadingIconColor = MaterialTheme.colors.onSurface,
+                focusedIndicatorColor = if (isEmailValid) Color.Transparent else Color.Red,
+                unfocusedIndicatorColor = if (isEmailValid) Color.Transparent else Color.Red
+            )
         )
 
         Button(
@@ -159,15 +189,19 @@ fun Onboarding(navController: NavHostController) {
                         .putString(USER_LASTNAME, lastName)
                         .putString(USER_EMAIL, email)
                         .apply()
-                }else{
-                    Toast.makeText(context, "Please fill the form to register", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Please fill the form to register", Toast.LENGTH_SHORT)
+                        .show()
+                    isValid = false
                 }
 
             }, colors = ButtonDefaults.buttonColors(backgroundColor = yellow),
-            modifier = Modifier.padding(5.dp).fillMaxWidth().padding(start = 16.dp, end = 16.dp)
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
         ) {
             Text(text = "Register")
-
         }
     }
 
